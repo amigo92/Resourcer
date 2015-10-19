@@ -1,0 +1,48 @@
+<div class="row">
+<div class="col-md-4 page-header">
+	<h1>
+		Customers 
+		<a href="/customers/create" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New Customer
+		</a>
+	</h1>
+
+</div>
+<div class="col-sm-8 form-group page-header">
+		
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="query">
+		</div>
+	</div>
+</div>
+<div class="row">
+<div class="jumbotron text-center" ng-show="customer.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading customers...</p>
+</div>
+
+
+<table class="table table-bordered table-striped" ng-show="customer.customers">
+	<thead>
+		<tr>
+			<th>_id</th>
+			<th>Name</th>
+			<th>Customername</th>
+			<th class="col-sm-2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="person in customer.customers|filter:query">
+			<td>{{ person._id }}</td>
+			<td>{{ person.name }}</td>
+			<td>{{ person.byID }}</td>
+
+			<td class="col-sm-2">
+				<a ng-if="person.byID==main.user.id" ng-href="/customers/{{ person._id }}" class="btn btn-danger">Edit</a>
+				<a href="#" ng-click="customer.deleteCustomer(person._id)" class="btn btn-primary">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>

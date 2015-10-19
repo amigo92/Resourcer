@@ -1,0 +1,117 @@
+angular.module('curentorderCtrl', ['curentorderService'])
+
+.controller('curentorderController', function(CurentOrder) {
+
+	var vm = this;
+
+	// set a processing variable to show loading things
+	vm.processing = true;
+
+	// grab all the curentorders at page load
+	CurentOrder.all()
+		.success(function(data) {
+
+			// when all the curentorders come back, remove the processing variable
+			vm.processing = false;
+
+			// bind the curentorders that come back to vm.curentorders
+			vm.curentorders = data;
+		});
+
+	// function to delete a curentorder
+	vm.deleteCurentOrder = function(id) {
+		vm.processing = true;
+
+
+		CurentOrder.delete(id)
+			.success(function(data) {
+
+				// get all curentorders to update the table
+				// you can also set up your api 
+				// to return the list of curentorders with the delete call
+				CurentOrder.all()
+					.success(function(data) {
+						vm.processing = false;
+						vm.curentorders = data;
+					});
+
+			});
+	};
+
+})
+
+
+// controller applied to curentorder creation page
+.controller('curentorderCreateController', function(CurentOrder) {
+	
+	var vm = this;
+
+	// variable to hide/show elements of the view
+	// differentiates between create or edit pages
+	vm.type = 'create';
+vm.dataRole = {
+
+     multipleSelect: [],
+     option1: 'Marketing',
+     option2: 'Sales',
+     option3:  'Admin',
+    };
+    //console.log(main.curentorder);
+    
+  //  vm.curentorderData.role=vm.dataRole.singleselect;
+	// function to create a curentorder
+	vm.saveCurentOrder = function() {
+		vm.processing = true;
+		vm.message = '';
+
+		// use the create function in the curentorderService
+		CurentOrder.create(vm.curentorderData)
+			.success(function(data) {
+				vm.processing = false;
+				vm.curentorderData = {};
+				vm.message = data.message;
+			});
+			
+	};	
+
+})
+// controller applied to curentorder edit page
+.controller('curentorderEditController', function($routeParams, CurentOrder) {
+
+	var vm = this;
+
+	// variable to hide/show elements of the view
+	// differentiates between create or edit pages
+	vm.type = 'edit';
+
+	// get the curentorder data for the curentorder you want to edit
+	// $routeParams is the way we grab data from the URL
+	CurentOrder.get($routeParams.curentorder_id)
+		.success(function(data) {
+			vm.curentorderData = data;
+		});
+
+	// function to save the curentorder
+	vm.saveCurentOrder = function() {
+		vm.processing = true;
+		vm.message = '';
+vm.dataRole = {
+
+     multipleSelect: [],
+     option1: 'Marketing',
+     option2: 'Sales',
+     option3:  'Admin',
+    };	// call the curentorderService function to update 
+		CurentOrder.update($routeParams.curentorder_id, vm.curentorderData)
+			.success(function(data) {
+				vm.processing = false;
+
+				// clear the form
+				vm.curentorderData = {};
+
+				// bind the message from our API to vm.message
+				vm.message = data.message;
+			});
+	};
+
+});

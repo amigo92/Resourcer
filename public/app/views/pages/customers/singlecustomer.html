@@ -1,0 +1,49 @@
+<div class="page-header">
+	<h1 ng-if="customer.type == 'create'">Create Customer</h1>
+	<h1 ng-if="customer.type == 'edit'">Edit Customer</h1>
+</div>
+{{main.user}} {{customer.customerData}}
+<form class="form-horizontal" ng-submit="customer.saveCustomer()">
+	
+	<div class="form-group">	
+		<label class="col-sm-2 control-label">phnNumber</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="customer.customerData.phnNumber">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="customer.customerData.name">
+		</div>
+	</div>
+	
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">CustomerPriority</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="customer.customerData.role">
+		</div>
+	</div>
+	
+
+	
+	<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-6">
+		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="customer.type == 'create'">Create Customer</button>
+		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="customer.type == 'edit'">Update Customer</button>
+	</div>
+	</div>
+
+</form>
+
+<div class="row show-hide-message" ng-show="customer.message">
+	<div class="col-sm-6 col-sm-offset-2">
+		
+		<div class="alert alert-info">
+			{{ customer.message }}
+		</div>
+
+	</div>
+</div>

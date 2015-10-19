@@ -1,0 +1,49 @@
+<div class="page-header">
+	<h1 ng-if="currentorder.type == 'create'">Create CurrentOrder</h1>
+	<h1 ng-if="currentorder.type == 'edit'">Edit CurrentOrder</h1>
+</div>
+{{main.user}}{{currentorder.currentorderData}}
+<form class="form-horizontal" ng-submit="currentorder.saveCurrentOrder()">
+	
+	<div class="form-group">	
+		<label class="col-sm-2 control-label">phnNumber</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="currentorder.currentorderData.phnNumber">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="currentorder.currentorderData.name">
+		</div>
+	</div>
+	
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">CurrentOrderPriority</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="currentorder.currentorderData.role">
+		</div>
+	</div>
+	
+
+	
+	<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-6">
+		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="currentorder.type == 'create'">Create CurrentOrder</button>
+		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="currentorder.type == 'edit'">Update CurrentOrder</button>
+	</div>
+	</div>
+
+</form>
+
+<div class="row show-hide-message" ng-show="currentorder.message">
+	<div class="col-sm-6 col-sm-offset-2">
+		
+		<div class="alert alert-info">
+			{{ currentorder.message }}
+		</div>
+
+	</div>
+</div>

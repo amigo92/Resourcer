@@ -1,0 +1,48 @@
+<div class="row">
+<div class="col-md-4 page-header">
+	<h1>
+		Leads 
+		<a href="/leads/create" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New Lead
+		</a>
+	</h1>
+
+</div>
+<div class="col-sm-8 form-group page-header">
+		
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="query">
+		</div>
+	</div>
+</div>
+<div class="row">
+<div class="jumbotron text-center" ng-show="lead.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading leads...</p>
+</div>
+
+
+<table class="table table-bordered table-striped" ng-show="lead.leads">
+	<thead>
+		<tr>
+			<th>_id</th>
+			<th>Name</th>
+			<th>Leadname</th>
+			<th class="col-sm-2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="person in lead.leads|filter:query">
+			<td>{{ person._id }}</td>
+			<td>{{ person.name }}</td>
+			<td>{{ person.byID }}</td>
+
+			<td class="col-sm-2">
+				<a ng-if="person.byID==main.user.id" ng-href="/leads/{{ person._id }}" class="btn btn-danger">Edit</a>
+				<a href="#" ng-click="lead.deleteLead(person._id)" class="btn btn-primary">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>

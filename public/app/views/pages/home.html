@@ -1,0 +1,13 @@
+<div class="jumbotron text-center">
+	<h1>Welcome to the Resourcer!</h1>
+
+	<div ng-if="!main.loggedIn">
+		<p>Login to see manage your Resources.</p>
+		<a href="/login" class="btn btn-primary">Login</a>
+	</div>
+
+	<div ng-if="main.loggedIn">
+		<p>Manage your Resources.</p>
+		<a href="/users" class="btn btn-primary">Manage Resources</a>
+	</div>
+</div>
